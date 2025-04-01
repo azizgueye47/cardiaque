@@ -16,6 +16,24 @@ try:
     df = pd.read_csv('heart (1).csv')
     logger.info(f"Données chargées: {len(df)} lignes")
 
+    # Vérifier les valeurs manquantes
+    if df.isnull().any().any():
+        logger.warning("Valeurs manquantes détectées dans les données")
+        df = df.dropna()
+        logger.info(f"Données après suppression des valeurs manquantes: {len(df)} lignes")
+
+    # Vérifier les valeurs aberrantes
+    for column in df.columns:
+        if df[column].dtype in ['int64', 'float64']:
+            Q1 = df[column].quantile(0.25)
+            Q3 = df[column].quantile(0.75)
+            IQR = Q3 - Q1
+            outliers = df[(df[column] < Q1 - 1.5 * IQR) | (df[column] > Q3 + 1.5 * IQR)]
+            if len(outliers) > 0:
+                logger.warning(f"Valeurs aberrantes détectées dans la colonne {column}: {len(outliers)} valeurs")
+                df = df[~((df[column] < Q1 - 1.5 * IQR) | (df[column] > Q3 + 1.5 * IQR))]
+                logger.info(f"Données après suppression des valeurs aberrantes: {len(df)} lignes")
+
     # Préparer les features et la target
     X = df.drop('target', axis=1)
     y = df['target']
