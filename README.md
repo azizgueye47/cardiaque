@@ -1,20 +1,16 @@
 # Prédiction de Maladie Cardiaque
 
-Application web de prédiction de maladie cardiaque utilisant l'intelligence artificielle.
-
-## Description
-
-Cette application permet de prédire le risque de maladie cardiaque en se basant sur plusieurs paramètres médicaux. Elle utilise un modèle d'apprentissage automatique entraîné sur un ensemble de données de patients.
+Une application web de prédiction de maladie cardiaque utilisant l'intelligence artificielle. Cette application permet aux utilisateurs de prédire le risque de maladie cardiaque en fonction de divers paramètres médicaux.
 
 ## Fonctionnalités
 
-- Interface utilisateur moderne et responsive
+- Interface utilisateur moderne et intuitive
 - Formulaire interactif pour saisir les données du patient
 - Prédiction en temps réel
-- Affichage des probabilités avec visualisation
-- Design adaptatif pour mobile et desktop
+- Visualisation des probabilités
+- Design responsive (mobile et desktop)
 
-## Technologies utilisées
+## Technologies Utilisées
 
 - Python
 - Flask
@@ -23,34 +19,60 @@ Cette application permet de prédire le risque de maladie cardiaque en se basant
 - HTML5/CSS3
 - JavaScript
 
+## Installation Locale
 
+1. Clonez le repository :
+```bash
+git clone https://github.com/azizgueye47/cardiaque.git
+cd cardiaque
 ```
 
-2. Créer un environnement virtuel :
+2. Créez un environnement virtuel :
 ```bash
 python -m venv venv
-source venv/bin/activate  # Sur Windows: venv\Scripts\activate
+source venv/bin/activate  # Sur Windows : venv\Scripts\activate
 ```
 
-3. Installer les dépendances :
+3. Installez les dépendances :
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Lancer l'application :
+4. Lancez l'application :
 ```bash
 python app.py
 ```
 
+5. Accédez à l'application :
+```
+http://localhost:5000
+```
 
+## Déploiement sur Render.com
 
+1. Créez un compte sur [Render.com](https://render.com)
+
+2. Connectez votre compte GitHub
+
+3. Créez un nouveau Web Service :
+   - Cliquez sur "New +" et sélectionnez "Web Service"
+   - Connectez votre repository GitHub
+   - Configurez le service :
+     ```
+     Name: heart-disease-prediction
+     Environment: Python
+     Build Command: pip install -r requirements.txt
+     Start Command: gunicorn app:app
+     ```
+
+4. Cliquez sur "Create Web Service"
 
 ## Utilisation
 
-1. Accédez à l'application via l'URL fournie
+1. Accédez à l'application via l'URL fournie par Render
 2. Remplissez le formulaire avec les informations du patient
-3. Cliquez sur "Obtenir la Prédiction"
-4. Consultez les résultats et la probabilité
+3. Cliquez sur "Prédire" pour obtenir la prédiction
+4. Consultez les résultats et les probabilités
 
 ## Contribution
 
