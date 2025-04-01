@@ -23,12 +23,7 @@ Cette application permet de prédire le risque de maladie cardiaque en se basant
 - HTML5/CSS3
 - JavaScript
 
-## Installation locale
 
-1. Cloner le repository :
-```bash
-git clone [URL_DU_REPO]
-cd [NOM_DU_DOSSIER]
 ```
 
 2. Créer un environnement virtuel :
@@ -47,18 +42,8 @@ pip install -r requirements.txt
 python app.py
 ```
 
-5. Ouvrir le navigateur à l'adresse : `http://localhost:5000`
 
-## Déploiement
 
-L'application est déployée sur Render.com. Pour déployer votre propre version :
-
-1. Créer un compte sur Render.com
-2. Connecter votre repository GitHub
-3. Créer un nouveau Web Service
-4. Sélectionner le repository
-5. Configurer les variables d'environnement si nécessaire
-6. Déployer
 
 ## Utilisation
 
