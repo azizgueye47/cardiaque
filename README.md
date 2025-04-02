@@ -43,20 +43,8 @@ pip install -r requirements.txt
 python app.py
 ```
 
-5. Accédez à l'application :
-```
-http://localhost:5000
-```
 
 
-4. Cliquez sur "Create Web Service"
-
-## Utilisation
-
-1. Accédez à l'application via l'URL fournie par Render
-2. Remplissez le formulaire avec les informations du patient
-3. Cliquez sur "Prédire" pour obtenir la prédiction
-4. Consultez les résultats et les probabilités
 
 ## Contribution
 
