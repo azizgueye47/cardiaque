@@ -251,14 +251,19 @@
                     <div class="form-group">
                         <label class="form-label" for="slope">Pente du Segment ST au Pic</label>
                         <select class="form-control" id="slope" required>
-                            <option value="0">Ascendante</option>
+                            <option value="0">Descendante</option>
                             <option value="1">Plate</option>
-                            <option value="2">Descendante</option>
+                            <option value="2">Ascendante</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="ca">Nombre de Vaisseaux Majeurs Colorés</label>
-                        <input type="number" class="form-control" id="ca" required min="0" max="3">
+                        <label class="form-label" for="ca">Nombre de Vaisseaux Colorés par Fluoroscopie</label>
+                        <select class="form-control" id="ca" required>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="thal">Thalassémie</label>
@@ -281,18 +286,20 @@
                     <i class="fas fa-heart"></i>
                 </div>
                 <div class="result-text">
-                    <h4 id="result-title"></h4>
-                    <p id="result-description"></p>
+                    <h3 id="resultTitle"></h3>
+                    <p id="resultDescription"></p>
                     <div class="probability-bar">
-                        <div class="probability-fill" id="probability-fill"></div>
+                        <div class="probability-fill" id="probabilityFill"></div>
                     </div>
+                    <p id="probabilityText"></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = {
@@ -319,40 +326,28 @@
                     },
                     body: JSON.stringify(formData)
                 });
-                
+
                 const data = await response.json();
                 const resultDiv = document.getElementById('result');
+                const resultTitle = document.getElementById('resultTitle');
+                const resultDescription = document.getElementById('resultDescription');
+                const probabilityFill = document.getElementById('probabilityFill');
+                const probabilityText = document.getElementById('probabilityText');
+
+                resultDiv.className = 'result ' + (data.prediction === 1 ? 'positive' : 'negative');
+                resultTitle.textContent = data.prediction === 1 ? 'Risque de Maladie Cardiaque Détecté' : 'Aucun Risque de Maladie Cardiaque';
+                resultDescription.textContent = data.prediction === 1 
+                    ? 'Il y a un risque de maladie cardiaque. Consultez un médecin pour une évaluation approfondie.'
+                    : 'Le risque de maladie cardiaque est faible. Continuez à maintenir un mode de vie sain.';
+                
+                const probability = data.probability * 100;
+                probabilityFill.style.width = probability + '%';
+                probabilityText.textContent = `Probabilité : ${probability.toFixed(1)}%`;
+                
                 resultDiv.style.display = 'block';
-                
-                if (data.error) {
-                    resultDiv.className = 'result negative';
-                    document.getElementById('result-title').textContent = 'Erreur';
-                    document.getElementById('result-description').textContent = data.error;
-                    return;
-                }
-                
-                const probability = (data.Probability * 100).toFixed(1);
-                document.getElementById('probability-fill').style.width = `${probability}%`;
-                
-                if (data['Heart Disease Prediction'] === 1) {
-                    resultDiv.className = 'result positive';
-                    document.getElementById('result-title').textContent = 'Risque Élevé de Maladie Cardiaque';
-                    document.getElementById('result-description').textContent = 
-                        `Probabilité: ${probability}% - Une attention médicale est recommandée.`;
-                } else {
-                    resultDiv.className = 'result negative';
-                    document.getElementById('result-title').textContent = 'Risque Faible de Maladie Cardiaque';
-                    document.getElementById('result-description').textContent = 
-                        `Probabilité: ${probability}% - Continuez à maintenir un mode de vie sain.`;
-                }
             } catch (error) {
-                console.error('Error:', error);
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.className = 'result negative';
-                document.getElementById('result-title').textContent = 'Erreur';
-                document.getElementById('result-description').textContent = 
-                    'Une erreur est survenue lors de la prédiction. Veuillez réessayer.';
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de la prédiction. Veuillez réessayer.');
             }
         });
     </script>

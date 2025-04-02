@@ -67,8 +67,8 @@ def predict():
             logger.info(f"Prédiction réussie: {prediction[0]}, Probabilité: {probability[1]}")
             
             return jsonify({
-                'Heart Disease Prediction': int(prediction[0]),
-                'Probability': float(probability[1])
+                'prediction': int(prediction[0]),
+                'probability': float(probability[1])
             })
         except Exception as e:
             logger.error(f"Erreur lors de la prédiction: {str(e)}")
