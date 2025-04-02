@@ -48,22 +48,6 @@ python app.py
 http://localhost:5000
 ```
 
-## Déploiement sur Render.com
-
-1. Créez un compte sur [Render.com](https://render.com)
-
-2. Connectez votre compte GitHub
-
-3. Créez un nouveau Web Service :
-   - Cliquez sur "New +" et sélectionnez "Web Service"
-   - Connectez votre repository GitHub
-   - Configurez le service :
-     ```
-     Name: heart-disease-prediction
-     Environment: Python
-     Build Command: pip install -r requirements.txt
-     Start Command: gunicorn app:app
-     ```
 
 4. Cliquez sur "Create Web Service"
 
